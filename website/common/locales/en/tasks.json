@@ -139,7 +139,6 @@
   "taskSummary": "<%= type %> Summary",
   "scoreUp": "Score up",
   "scoreDown": "Score down",
-  "sortBy": "Sort By",
-  "manual": "Manual",
-  "dueDate": "Due Date"
+  "sortTodosBy": "Sort By",
+  "manual": "Manual"
 }
