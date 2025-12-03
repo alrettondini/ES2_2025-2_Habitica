@@ -138,5 +138,8 @@
   "pressEnterToAddTag": "Press Enter to add tag: '<%= tagName %>'",
   "taskSummary": "<%= type %> Summary",
   "scoreUp": "Score up",
-  "scoreDown": "Score down"
+  "scoreDown": "Score down",
+  "sortBy": "Sort By",
+  "manual": "Manual",
+  "dueDate": "Due Date"
 }

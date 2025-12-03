@@ -59,6 +59,8 @@ const updatablePaths = [
   'profile',
   'stats',
   'inbox.optOut',
+
+  'todosOrderBy',
 ];
 
 // This tells us for which paths users can call `PUT /user`.
