@@ -37,6 +37,29 @@
           {{ $t(filter) }}
         </div>
       </div>
+      <div
+        v-if="type === 'todo'"
+        class="sort-options d-flex justify-content-end ml-3"
+      >
+        <div
+          class="sort-button"
+          :class="{active: todosOrderBy === 'manual'}"
+          tabindex="0"
+          @click="setTodosOrderBy('manual')"
+          @keypress.enter="setTodosOrderBy('manual')"
+        >
+          {{ $t('manual') }}
+        </div>
+        <div
+          class="sort-button"
+          :class="{active: todosOrderBy === 'dueDate'}"
+          tabindex="0"
+          @click="setTodosOrderBy('dueDate')"
+          @keypress.enter="setTodosOrderBy('dueDate')"
+        >
+          {{ $t('dueDate') }}
+        </div>
+      </div>
     </div>
     <div
       ref="tasksWrapper"
@@ -86,7 +109,7 @@
         v-if="taskList.length > 0"
         ref="tasksList"
         class="sortable-tasks"
-        :disabled="activeFilter.label === 'scheduled' || !canBeDragged()"
+        :disabled="activeFilter.label === 'scheduled' || (type === 'todo' && todosOrderBy === 'dueDate') || !canBeDragged()"
         scrollSensitivity="64"
         :delay-on-touch-only="true"
         :delay="100"
@@ -287,6 +310,34 @@
     }
   }
 
+  .sort-options {
+    gap: 4px;
+  }
+
+  .sort-button {
+    font-weight: bold;
+    color: $gray-100;
+    font-style: normal;
+    padding: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    font-size: 0.875rem;
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+      color: $purple-200;
+      background-color: rgba($purple-400, 0.1);
+    }
+
+    &.active {
+      color: $purple-200;
+      background-color: rgba($purple-400, 0.2);
+      border-bottom: 2px solid $purple-200;
+      padding-bottom: 6px;
+    }
+  }
+
   .column-background {
     position: absolute;
     width: 100%;
@@ -445,6 +496,9 @@ export default {
       getUserPreferences: 'user:preferences',
       getUserBuffs: 'user:buffs',
     }),
+    todosOrderBy () {
+      return this.user.todosOrderBy || 'manual';
+    },
     taskList () {
       // @TODO: This should not default to user's tasks. It should require that you pass options in
       const filteredTaskList = this.isUser
@@ -812,6 +866,11 @@ export default {
     canBeDragged () {
       return this.isUser
         || this.draggableOverride;
+    },
+    async setTodosOrderBy (orderBy) {
+      await this.$store.dispatch('user:set', {
+        'todosOrderBy': orderBy,
+      });
     },
   },
 };

@@ -723,6 +723,11 @@ export const UserSchema = new Schema({
     todos: [{ $type: String, ref: 'Task' }],
     rewards: [{ $type: String, ref: 'Task' }],
   },
+  todosOrderBy: {
+    $type: String,
+    enum: ['manual', 'dueDate'],
+    default: 'manual',
+  },
   extra: {
     $type: Schema.Types.Mixed,
     default: () => ({}),

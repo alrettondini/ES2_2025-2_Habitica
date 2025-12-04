@@ -21,6 +21,16 @@ export function orderSingleTypeTasks (rawTasks, taskOrder) {
   return compact(orderedTasks).concat(unorderedTasks);
 }
 
+// Orders todos by due date, tasks without date come last
+export function orderTodosByDueDate (rawTodos) {
+  return rawTodos.slice().sort((a, b) => {
+    if (!a.date && !b.date) return 0;
+    if (!a.date) return 1;
+    if (!b.date) return -1;
+    return new Date(a.date) - new Date(b.date);
+  });
+}
+
 export function orderMultipleTypeTasks (rawTasks, tasksOrder) {
   return {
     habits: orderSingleTypeTasks(rawTasks.habits, tasksOrder.habits),
