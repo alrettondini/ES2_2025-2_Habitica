@@ -15,11 +15,6 @@
           </h1>
         </div>
         <div class="col-4">
-          <!-- @TODO: Add when we implement recent activity
-           .float-rightspan.dropdown-label {{ $t('sortBy') }}
-b-dropdown(:text="$t('sort')", right=true)
-          b-dropdown-item(v-for='sortOption in sortOptions',
-           :key="sortOption.value", @click='sort(sortOption.value)') {{sortOption.text}}-->
           <button
             class="btn btn-secondary create-group-button float-right"
             @click="createGroup()"
@@ -196,26 +191,26 @@ export default {
 
       // Role filters
       const filteringRole = eventData.roles && eventData.roles.length > 0;
-      if (filteringRole && eventData.roles.indexOf('member') !== -1) {
+      if (filteringRole && eventData.roles.includes('member') !== -1) {
         this.queryFilters.member = true;
       }
 
-      if (filteringRole && eventData.roles.indexOf('guild_leader') !== -1) {
+      if (filteringRole && eventData.roles.includes('guild_leader') !== -1) {
         this.queryFilters.leader = true;
       }
 
       // Size filters
-      if (eventData.guildSize && eventData.guildSize.indexOf('gold_tier') !== -1) {
+      if (eventData.guildSize && eventData.guildSize.includes('gold_tier') !== -1) {
         this.queryFilters.minMemberCount = 1000;
         this.queryFilters.maxMemberCount = 0; // No max
       }
 
-      if (eventData.guildSize && eventData.guildSize.indexOf('silver_tier') !== -1) {
+      if (eventData.guildSize && eventData.guildSize.includes('silver_tier') !== -1) {
         this.queryFilters.minMemberCount = 100;
         this.queryFilters.maxMemberCount = 999;
       }
 
-      if (eventData.guildSize && eventData.guildSize.indexOf('bronze_tier') !== -1) {
+      if (eventData.guildSize && eventData.guildSize.includes('bronze_tier') !== -1) {
         this.queryFilters.minMemberCount = 0; // No Min
         this.queryFilters.maxMemberCount = 99;
       }
