@@ -249,6 +249,7 @@ export default {
           weapon: 'weapon_rogue_6',
         };
       }
+      
       if (heroClass === 'wizard') {
         return {
           armor: 'armor_wizard_5',
@@ -256,6 +257,7 @@ export default {
           weapon: 'weapon_wizard_6',
         };
       }
+
       if (heroClass === 'healer') {
         return {
           armor: 'armor_healer_5',
@@ -264,6 +266,7 @@ export default {
           weapon: 'weapon_healer_6',
         };
       }
+
       if (heroClass === 'warrior') {
         return {
           armor: 'armor_warrior_5',
