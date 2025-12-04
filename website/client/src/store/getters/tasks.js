@@ -1,7 +1,7 @@
 import { shouldDo } from '@/../../common/script/cron';
 
 // Library / Utility function
-import { orderSingleTypeTasks } from '@/libs/store/helpers/orderTasks';
+import { orderSingleTypeTasks, orderTodosByDueDate } from '@/libs/store/helpers/orderTasks';
 import { getActiveFilter, sortAndFilterTasks } from '@/libs/store/helpers/filterTasks';
 
 // Return all the tags belonging to an user task
@@ -239,10 +239,14 @@ export function getFilteredTaskList ({ state, getters }) {
     const selectedFilter = getActiveFilter(type, filterType);
     const taskOrderForType = state.user.data.tasksOrder[type];
 
-    // order tasks based on user set task order
+    // order tasks based on user set task order or due date for todos
     // Still needs unit test for this..
     if (requestedTasks.length > 0 && !selectedFilter.sort) {
-      requestedTasks = orderSingleTypeTasks(requestedTasks, taskOrderForType);
+      if (type === 'todo' && state.user.data.todosOrderBy === 'dueDate') {
+        requestedTasks = orderTodosByDueDate(requestedTasks);
+      } else {
+        requestedTasks = orderSingleTypeTasks(requestedTasks, taskOrderForType);
+      }
     }
     return sortAndFilterTasks(requestedTasks, selectedFilter);
   };
