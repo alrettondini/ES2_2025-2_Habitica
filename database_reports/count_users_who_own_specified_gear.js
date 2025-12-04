@@ -1,12 +1,12 @@
-var authorName = 'Alys'; // in case script author needs to know when their ...
-var authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
+let authorName = 'Alys'; // in case script author needs to know when their ...
+let authorUuid = 'd904bd62-da08-416b-a816-ba797c9ee265'; //... own data is done
 
 /**
  * database_reports/count_users_who_own_specified_gear.js
  * https://github.com/HabitRPG/habitica/pull/3884
  */
 
-var thingsOfInterest = {
+let thingsOfInterest = {
     'Unconventional Armor ownership': {
         'data_path': 'items.gear.owned',
         'identifyOwnershipWith': 'exists',
@@ -34,22 +34,22 @@ var thingsOfInterest = {
     }
 };
 
-var mongo = require('mongoskin');
-var _ = require('lodash');
+let mongo = require('mongoskin');
+let _ = require('lodash');
 
-var dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');
+let dbUsers = mongo.db('localhost:27017/habitrpg?auto_reconnect').collection('users');
 
-var thingsFound = {};  // each key is one "thing" from thingsOfInterest,
+let thingsFound = {};  // each key is one "thing" from thingsOfInterest,
         // and the value for that key is the number of users who own it
         // (for items, 'owned' values of both true and false are counted
         // to include items lost on death)
 
-var query  = {}; // Not worth limiting search data with query and fields since
-var fields = {}; // this will be run over a local copy of the database?
+let query  = {}; // Not worth limiting search data with query and fields since
+let fields = {}; // this will be run over a local copy of the database?
 
 console.warn('Finding data...');
-var progressCount = 1000;
-var count = 0;
+let progressCount = 1000;
+let count = 0;
 dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     if (err) { return exiting(1, 'ERROR! ' + err); }
     if (!user) {
@@ -59,10 +59,10 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
     count++;
 
     _.each(thingsOfInterest,function(obj,label){
-        var data_path = obj['data_path'];
-        var items = obj['items'];
-        var identifyOwnershipWith = obj['identifyOwnershipWith'];
-        var userOwns = path(user, data_path, {});
+        let data_path = obj['data_path'];
+        let items = obj['items'];
+        let identifyOwnershipWith = obj['identifyOwnershipWith'];
+        let userOwns = path(user, data_path, {});
 
         _.each(items,function(item){
             if ( (identifyOwnershipWith == 'exists' && item in userOwns) ||
@@ -82,19 +82,19 @@ dbUsers.findEach(query, fields, {batchSize:250}, function(err, user) {
 
 
 function displayData() {
-    var today = yyyymmdd(new Date());
-    var csvReport  = '';
-    var textReport = today + '\n';
+    let today = yyyymmdd(new Date());
+    let csvReport  = '';
+    let textReport = today + '\n';
 
     _.each(thingsFound,function(obj,label){
         csvReport  += '\n"' + label + '"' + '\n';
         textReport += '\n'  + label +      ':\n';
-        var csvHeader = '"date"'; // heading row in CSV data
-        var csvData   = '"' + today + '"'; // data row in CSV data
+        let csvHeader = '"date"'; // heading row in CSV data
+        let csvData   = '"' + today + '"'; // data row in CSV data
 
-        var sortedKeys = _.sortBy(_.keys(obj), function(key){ return key; });
+        let sortedKeys = _.sortBy(_.keys(obj), function(key){ return key; });
         _.each(sortedKeys,function(key){
-            var value = obj[key];
+            let value = obj[key];
             csvHeader += ',"' + key + '"';
             csvData += ',"' + (value || 0) + '"';
             textReport += '\t' + key + ': ' + value + '\n';
@@ -122,7 +122,7 @@ function path(obj, path, def) {
  * https://stackoverflow.com/a/16190716
  * Usage: console.log(path(someObject, pathname));
  */
-    for(var i = 0,path = path.split('.'),len = path.length; i < len; i++){
+    for(let i = 0,path = path.split('.'),len = path.length; i < len; i++){
         if(!obj || typeof obj !== 'object') return def;
         obj = obj[path[i]];
     }
@@ -132,9 +132,9 @@ function path(obj, path, def) {
 
 
 function yyyymmdd(date) {
-    var yyyy =  date.getFullYear().toString();
-    var mm   = (date.getMonth()+1).toString();
-    var dd   =  date.getDate().toString();
+    let yyyy =  date.getFullYear().toString();
+    let mm   = (date.getMonth()+1).toString();
+    let dd   =  date.getDate().toString();
     return yyyy + "-" + (mm[1]?mm:"0"+mm[0]) + "-" + (dd[1]?dd:"0"+dd[0]);
 }
 
@@ -151,7 +151,7 @@ function exiting(code, msg) {
 
 
 /*  SAMPLE OUTPUT (STDOUT and STDERR):
-$ node database_reports/count_users_who_own_specified_gear.js 
+$ node database_reports/count_users_who_own_specified_gear.js
 
 Finding data...
 Alys processed
