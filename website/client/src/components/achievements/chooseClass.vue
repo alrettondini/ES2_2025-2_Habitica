@@ -234,7 +234,7 @@ export default {
       this.$root.$emit('bv::hide::modal', 'choose-class');
     },
     clickSelectClass (heroClass) {
-      if (this.user.flags.classSelected && !window.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
+      if (this.user.flags.classSelected && !globalThis.confirm(this.$t('changeClassConfirmCost'))) return; // eslint-disable-line no-alert
       this.$store.dispatch('user:changeClass', { query: { class: heroClass } });
     },
     clickDisableClasses () {
@@ -248,20 +248,26 @@ export default {
           shield: 'shield_rogue_6',
           weapon: 'weapon_rogue_6',
         };
-      } if (heroClass === 'wizard') {
+      }
+      
+      if (heroClass === 'wizard') {
         return {
           armor: 'armor_wizard_5',
           head: 'head_wizard_5',
           weapon: 'weapon_wizard_6',
         };
-      } if (heroClass === 'healer') {
+      }
+
+      if (heroClass === 'healer') {
         return {
           armor: 'armor_healer_5',
           head: 'head_healer_5',
           shield: 'shield_healer_5',
           weapon: 'weapon_healer_6',
         };
-      } if (heroClass === 'warrior') {
+      }
+
+      if (heroClass === 'warrior') {
         return {
           armor: 'armor_warrior_5',
           head: 'head_warrior_5',
