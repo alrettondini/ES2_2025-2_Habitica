@@ -208,7 +208,7 @@ export default {
       const isTasksSync = url.indexOf('/api/v4/tasks/user') === 0 && method === 'get';
       const isChatSeen = url.indexOf('/chat/seen') !== -1 && method === 'post';
       const isCron = url.indexOf('/api/v4/cron') === 0 && method === 'post';
-      const isCast = url.indexOf('/api/v4/user/class/cast') === -1 && method === 'post';
+      const isCast = url.indexOf('/api/v4/user/class/cast') !== -1 && method === 'post';
 
       return isCron || isChatSeen || isUserSync || isTasksSync || isCast;
     },
