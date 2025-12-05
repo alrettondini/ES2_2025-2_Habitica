@@ -90,13 +90,13 @@ describe('Invites Library', () => {
       const fakeUUID = generateUUID();
 
       await expect(
-        inviteByUUID(fakeUUID, guild, inviter, req, res)
+        inviteByUUID(fakeUUID, guild, inviter, req, res),
       ).to.be.rejected;
     });
 
     it('throws BadRequest when inviting self', async () => {
       await expect(
-        inviteByUUID(inviter._id, guild, inviter, req, res)
+        inviteByUUID(inviter._id, guild, inviter, req, res),
       ).to.be.rejected;
     });
 
@@ -105,7 +105,7 @@ describe('Invites Library', () => {
       await userToInvite.save();
 
       await expect(
-        inviteByUUID(userToInvite._id, guild, inviter, req, res)
+        inviteByUUID(userToInvite._id, guild, inviter, req, res),
       ).to.be.rejected;
     });
 
@@ -138,7 +138,7 @@ describe('Invites Library', () => {
       const invite = {};
 
       await expect(
-        inviteByEmail(invite, guild, inviter, req, res)
+        inviteByEmail(invite, guild, inviter, req, res),
       ).to.be.rejected;
     });
 
@@ -191,7 +191,7 @@ describe('Invites Library', () => {
 
     it('throws NotFound when username does not exist', async () => {
       await expect(
-        inviteByUserName('nonexistent', guild, inviter, req, res)
+        inviteByUserName('nonexistent', guild, inviter, req, res),
       ).to.be.rejected;
     });
 
