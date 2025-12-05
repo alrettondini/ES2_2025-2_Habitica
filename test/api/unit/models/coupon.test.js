@@ -1,4 +1,3 @@
-import { v4 as generateUUID } from 'uuid';
 import { model as Coupon } from '../../../../website/server/models/coupon';
 import { generateUser } from '../../../helpers/api-unit.helper';
 
