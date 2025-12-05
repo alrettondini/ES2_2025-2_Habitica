@@ -90,6 +90,8 @@
     "test:build": "gulp test:prepare:build",
     "test:api-v3": "gulp test:api-v3",
     "test:api:unit": "gulp test:api:unit",
+    "test:api:unit:file": "NODE_ENV=test nyc --silent --no-clean mocha --require ./test/helpers/start-server",
+    "test:api:unit:grep": "NODE_ENV=test nyc --silent --no-clean mocha test/api/unit --recursive --require ./test/helpers/start-server --grep",
     "test:api-v3:integration": "gulp test:api-v3:integration",
     "test:api-v3:integration:separate-server": "NODE_ENV=test gulp test:api-v3:integration:separate-server",
     "test:api-v4:integration": "gulp test:api-v4:integration",
